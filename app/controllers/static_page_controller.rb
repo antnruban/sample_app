@@ -8,4 +8,7 @@ class StaticPageController < ApplicationController
 
   def hell
   end
+
+  def about
+  end
 end

@@ -11,10 +11,10 @@
 
 # Игнорирование прочих ненужных файлов.
 # database.yml
-doc/
+#doc/
 *.swp
 *~
-.project
-.DS_Store
-.idea
-.secret
+#.project
+#.DS_Store
+#.idea
+#.secret

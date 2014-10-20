@@ -7,13 +7,13 @@ describe "Static pages" do
   	describe "Home page" do
 
       it "should have the content 'Sample App'" do
-      	visit '/static_page/home'
+      	visit '/static_pages/home'
       	expect(page).to have_content()
     	end
 
 
       it "should have the right title" do 
-        visit '/static_page/home'
+        visit '/static_pages/home'
         expect(page).to have_title("#{app_name} | Home")
       end
   	end
@@ -21,11 +21,11 @@ describe "Static pages" do
 	describe "Help page" do
 
       it "should have the content 'Help'" do
-      	visit '/static_page/help'
+      	visit '/static_pages/help'
       	expect(page).to have_content('Help')
     	end
       it "should have the right title" do 
-        visit '/static_page/help'
+        visit '/static_pages/help'
         expect(page).to have_title("#{app_name} | Help")
       end
 	end
@@ -33,12 +33,12 @@ describe "Static pages" do
 	describe "Hell page" do
 
      it "should have the content 'Hell'" do
-     	visit '/static_page/hell'
+     	visit '/static_pages/hell'
      	expect(page).to have_content('Hell')
    		end
 
       it "should have the right title" do 
-        visit '/static_page/hell'
+        visit '/static_pages/hell'
         expect(page).to have_title("#{app_name} | Hell")
       end
 	end
@@ -46,12 +46,12 @@ describe "Static pages" do
 	describe "About page" do
 
      it "should have the content 'About Us'" do
-     	visit '/static_page/about'
+     	visit '/static_pages/about'
      	expect(page).to have_content('About Us')
    		end
 
       it "should have the right title" do 
-        visit '/static_page/about'
+        visit '/static_pages/about'
         expect(page).to have_title("#{app_name} | About")
       end
   end
@@ -59,12 +59,12 @@ describe "Static pages" do
   describe "Contacts page" do
 
      it "should have the content 'Contact to Us'" do
-      visit '/static_page/contacts'
+      visit '/static_pages/contacts'
       expect(page).to have_content('Contact to Us')
       end
 
       it "should have the right title" do 
-        visit '/static_page/contacts'
+        visit '/static_pages/contacts'
         expect(page).to have_title("#{app_name} | Contacts")
       end
   end

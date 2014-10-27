@@ -4,21 +4,26 @@ require 'spec_helper'
 describe "Static pages" do
   let(:app_name) { "Sample App" }
 
-  	describe "Home page" do
+describe "Home page" do
 
       it "should have the content 'Sample App'" do
       	visit '/static_pages/home'
-      	expect(page).to have_content()
+      	expect(page).to have_content("#{app_name}")
     	end
 
 
       it "should have the right title" do 
         visit '/static_pages/home'
-        expect(page).to have_title("#{app_name} | Home")
+        expect(page).to have_title("#{app_name}")
+      end
+
+      it "should not have a custom title" do
+        visit '/static_pages/home'
+        expect(page).not_to have_title('| Home') 
       end
   	end
 
-	describe "Help page" do
+describe "Help page" do
 
       it "should have the content 'Help'" do
       	visit '/static_pages/help'
@@ -30,7 +35,7 @@ describe "Static pages" do
       end
 	end
 
-	describe "Hell page" do
+describe "Hell page" do
 
      it "should have the content 'Hell'" do
      	visit '/static_pages/hell'
@@ -43,7 +48,7 @@ describe "Static pages" do
       end
 	end
 
-	describe "About page" do
+describe "About page" do
 
      it "should have the content 'About Us'" do
      	visit '/static_pages/about'
@@ -56,7 +61,7 @@ describe "Static pages" do
       end
   end
 
-  describe "Contacts page" do
+describe "Contacts page" do
 
      it "should have the content 'Contact to Us'" do
       visit '/static_pages/contacts'

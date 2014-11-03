@@ -11,10 +11,6 @@
  *= require_self
  *= require_tree .
  */
-.hell {
-	color: #900000;
-}
-
 * {
 	font-family:Purisa
 }

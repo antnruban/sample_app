@@ -1,3 +1,5 @@
+require 'open-uri'
+
 GOOGLE_IMAGE_API = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="
 
 module SearchImagesHelper

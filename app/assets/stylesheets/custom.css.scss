@@ -25,10 +25,22 @@ textarea {
   }
 
 }
+
 .search {
-  p {
-    font-size: 5em;
-  }
+  text-align: center;
+  width: 365;
+}
+
+.search_input {
+  width: 430px;
+}
+
+.search_results {
+  text-align: center;
+}
+
+.search_results_img {
+  padding: 5px;
 }
 
 /* typography */

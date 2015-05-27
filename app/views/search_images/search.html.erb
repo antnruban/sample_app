@@ -1,0 +1,14 @@
+<h1>Search for Google images</h1>
+<%= form_tag( search_path, method: "get") do %>
+  <%= text_field_tag(:search_query, nil, placeholder: "Start typing here...") %>
+  <%= submit_tag("Search", class: "btn btn-large btn-primary") %>
+<% end %>
+<td>
+<% if !results.nil? %>
+  <hr>
+  <h2 class="search">Results</h2>
+  <% results.each do |src|%>
+    <tr><img alt="image" src="<%= src%>"></tr>
+  <% end %>
+<% end %>
+</td>

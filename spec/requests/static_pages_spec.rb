@@ -39,7 +39,7 @@ describe "Help page" do
     it_should_behave_like "all static pages"
     let(:heading) { 'Help' }
     let(:page_title) { 'Help' }
-	end
+  end
 
 describe "Hell page" do
   before { visit hell_path }
@@ -47,7 +47,7 @@ describe "Hell page" do
     it_should_behave_like "all static pages"
     let(:heading) { 'Hell' }
     let(:page_title) { 'Hell' }
-	end
+  end
 
   describe "About page" do
     before { visit about_path }

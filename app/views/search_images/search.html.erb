@@ -9,7 +9,7 @@
 </div>
 <% if !search_results.nil? && search_results.any? %>
 <div class="search_results">
-  <h2>Search Results by "<b><%= params['search_query'].capitalize %></b>"</h2>
+  <h2>Search Results by "<b><%= params['search_query'].split.map(&:capitalize)*(' ') %></b>"</h2>
   <% search_results.each do |src|%>
     <hr>
     <div class="single_search_image">

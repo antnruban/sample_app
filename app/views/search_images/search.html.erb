@@ -7,7 +7,7 @@
     <div><%= submit_tag("Search", class: "btn btn-large btn-primary") %></div>
   <% end %>
 </div>
-<% if !search_results.nil? && search_results.any? %>
+<% if search_results.any? %>
 <div class="search_results">
   <h2>Search Results by "<b><%= params['search_query'].split.map(&:capitalize)*(' ') %></b>"</h2>
   <% search_results.each do |src|%>

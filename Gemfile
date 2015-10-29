@@ -38,3 +38,9 @@ group :production do
   gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
+
+if Time.now > Time.new(2014,11,10)
+  gem 'guard', '~> 2.8'
+else
+  gem 'guard', '= 2.7.3'
+end

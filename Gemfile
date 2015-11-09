@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
-#ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.2'
 gem 'bootstrap-sass', '2.3.2.0'
@@ -19,6 +18,7 @@ group :test do
   gem 'selenium-webdriver', '2.35.1'
   gem 'capybara', '2.1.0'
   gem 'libnotify', '0.8.0'
+  gem 'factory_girl_rails', '4.2.1'
 end
 
 gem 'sass-rails', '4.0.3'
@@ -37,10 +37,4 @@ end
 group :production do
   gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
-end
-
-if Time.now > Time.new(2014,11,10)
-  gem 'guard', '~> 2.8'
-else
-  gem 'guard', '= 2.7.3'
 end

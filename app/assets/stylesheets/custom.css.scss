@@ -32,7 +32,7 @@ textarea {
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
+  line-height: 2;
 }
 
 h1 {
@@ -76,11 +76,11 @@ p {
 /* footer */
 
 footer {
+  max-width: 940px;
   margin-top: 45px;
   margin-left: auto;
   margin-right: auto;
   padding-top: 5px;
-  width: 940px;
   border-top: 1px solid #eaeaea;
   color: #999;
     a {
@@ -103,10 +103,12 @@ footer {
 }
 
 @mixin box_sizing {
-   moz-box-sizing: border-box;
-   webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+/* miscellaneous */
 
 .debug_dump {
   clear: both;
@@ -176,4 +178,13 @@ input {
 
 .alert {
   text-align: center;
+}
+
+/* Hell */
+
+.hell {
+  color: #A80000;
+  &:hover {
+    color: #680000;
+  }
 }

@@ -9,7 +9,7 @@ describe "Authentication" do
 
 
     describe "with invalid information" do
-      before { click_button "Sign in" }
+      before { click_button "Sign In" }
 
       describe "after visiting another page" do
         before { click_link "Home" }
@@ -25,7 +25,7 @@ describe "Authentication" do
       before do
         fill_in "Email",    with: user.email.upcase
         fill_in "Password", with: user.password
-        click_button "Sign in"
+        click_button "Sign In"
       end
 
       it { should have_title(user.name) }

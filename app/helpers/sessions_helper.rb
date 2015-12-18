@@ -12,8 +12,7 @@ module SessionsHelper
 
   def current_user
     remember_token = User.encrypt(cookies[:remember_token])
-    session[:user_id] = 1 if Rails.env.test? # Not finish implementation
-    @current_user ||= User.find_by(remember_token: remember_token) if session[:user_id]
+    @current_user ||= User.find_by(remember_token: remember_token)
   end
 
   def current_user?(user)
@@ -27,7 +26,6 @@ module SessionsHelper
   def sign_out
     current_user.update_attribute(:remember_token, User.encrypt(User.new_remember_token))
     cookies.delete(:remember_token)
-    session[:user_id] = nil
     self.current_user = nil
   end
 end

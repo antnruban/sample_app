@@ -1,3 +1,5 @@
+require "./spec/support/utilities.rb"
+
 Given /^a user visits the signin page$/ do
   visit signin_path
 end
@@ -16,9 +18,7 @@ Given /^the user has an account$/ do
 end
 
 When /^the user submits valid signin information$/ do
-  fill_in "Email",    with: @user.email
-  fill_in "Password", with: @user.password
-  click_button "Sign In"
+  sign_in(@user)
 end
 
 Then /^they should see their profile page$/ do

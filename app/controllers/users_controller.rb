@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user, only:   [:edit, :update]
-  before_action :admin_user, only:     :destroy
+  before_action :signed_in_user, only:  [:index, :edit, :update, :destroy]
+  before_action :correct_user, only:    [:edit, :update]
+  before_action :admin_user, only:      :destroy
+  before_action :registered_user, only: [:new, :create]
 
   def new
     @user = User.new
@@ -39,9 +40,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User profile deleted"
-    redirect_to users_path
+    user = User.find(params[:id])
+    if user.admin?
+      redirect_to users_path, notice: "Can't delete admin account."
+    else
+      user.destroy
+      flash[:success] = "User profile deleted"
+      redirect_to users_path
+    end
   end
 
   private
@@ -67,5 +73,9 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to root_path unless current_user.admin?
+  end
+
+  def registered_user
+    redirect_to root_path, notice: "You already have account." unless current_user?(@user)
   end
 end

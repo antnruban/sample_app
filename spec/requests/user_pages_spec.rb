@@ -5,19 +5,32 @@ describe "User Pages" do
   subject { page }
 
   describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user)       { FactoryGirl.create(:user) }
+    let(:wrong_user) { FactoryGirl.create(:user) }
     let!(:mp)  { FactoryGirl.create(:micropost, user: user, content: "content") }
     let!(:mp1) { FactoryGirl.create(:micropost, user: user, content: "content") }
-    before { visit  user_path(user) }
+    before { visit user_path(user) }
 
     it { should have_content (user.name) }
     it { should have_title (user.name) }
 
-    describe "microposts"do
+    describe "microposts" do
       it { should have_content mp.content }
       it { should have_content mp1.content }
       it { should have_content user.microposts.count }
+
+      describe "delete links" do
+        before do
+          FactoryGirl.create(:micropost, user: wrong_user, content: "content")
+          sign_in user
+        end
+        it { should have_link "delete" }
+
+        describe "wrong user" do
+          before { visit user_path(wrong_user) }
+          it { should_not have_link "delete" }
+        end
+      end
     end
   end
 

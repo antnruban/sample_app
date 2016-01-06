@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: true }
   validates :password, length: { minimum: 6 }
   has_many  :microposts, dependent: :destroy
+  has_many :relationships,foreign_key: "follower_id", dependent: :destroy
 
   def feed
     Micropost.where("user_id = ?", id)

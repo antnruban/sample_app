@@ -1,6 +1,6 @@
 <%= provide(:title, @user.name) %>
 <div class="row">
-  <aside class="span10">
+  <aside class="span4">
     <section>
       <h1>
         <%= gravatar_for @user %>
@@ -9,20 +9,21 @@
       <p>
         <% if @user.admin? && current_user?(@user) %>
           You are Admin
-        <% end%>
+        <% end %>
       </p>
     </section>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
   </aside>
-
-  <aside>
-    <div class="span8">
-      <% if @user.microposts.any? %>
-        <h3>Mircoposts (<%= @user.microposts.count %>)</h3>
-        <ol class="microposts">
-        <%= render @microposts %>
-        </ol>
-        <%= will_paginate @microposts %>
-      <% end%>
-    </div>
-  </aside>
+  <div class="span8">
+    <%= render 'follow_form' if signed_in? %>
+    <% if @user.microposts.any? %>
+      <h3>Mircoposts (<%= @user.microposts.count %>)</h3>
+      <ol class="microposts">
+      <%= render @microposts %>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
 </div>

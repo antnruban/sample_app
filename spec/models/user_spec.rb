@@ -24,13 +24,10 @@ describe User do
   it { should respond_to(:reverse_relationships) }
   it { should respond_to(:followers) }
 
-
-
-
   it { should be_valid }
   it { should_not be_admin }
 
-  describe  "with admin attribute set to 'true'" do
+  describe "with admin attribute set to 'true'" do
     before do
       @user.save
       @user.toggle!(:admin)

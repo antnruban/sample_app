@@ -27,7 +27,6 @@ textarea {
       margin-bottom: 10px;
       font-size: 50px;
   }
-
 }
 
 /* typography */
@@ -57,6 +56,7 @@ p {
   line-height: 1.7em;
   margin: 0px;
 }
+
 /* header */
 
 #logo {
@@ -70,9 +70,9 @@ p {
   font-weight: bold;
   line-height: 1;
   &:hover {
-      color: #fff;
-      text-decoration: none;
-    }
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 /* footer */
@@ -92,21 +92,21 @@ footer {
     }
   }
   small {
-       float: left;
+    float: left;
   }
   ul {
-      float: right;
-      list-style: none;
-      li {
-        float: left;
-        margin-left: 10px;
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
     }
   }
 }
 
 @mixin box_sizing {
-   -moz-box-sizing: border-box;
-   -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -247,16 +247,20 @@ input {
     border-top: 1px solid #e8e8e8;
   }
 }
+
 .content {
   display: block;
 }
+
 .timestamp {
   color: $grayLight;
 }
+
 .gravatar {
   float: left;
   margin-right: 10px;
 }
+
 aside {
   textarea {
     height: 100px;

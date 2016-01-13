@@ -30,7 +30,7 @@ describe "Authentication" do
       it { should_not have_link('Sign In', href: signin_path) }
 
       describe "followed by signout" do
-        before { click_link "Sign Out"}
+        before { click_link "Sign Out" }
         it { should have_link "Sign In" }
       end
     end
@@ -127,6 +127,7 @@ describe "Authentication" do
       end
 
       describe "in the Relationships controller" do
+
         describe "submitting to the create action" do
           before { post relationships_path }
           specify { expect(response).to redirect_to(signin_path) }

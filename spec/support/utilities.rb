@@ -1,4 +1,4 @@
-# helper's methods static_pages_spec.rb
+# Helper's methods static_pages_spec.rb
 def full_title(page_title)
   base_title = "Sample App"
   if page_title.empty?

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only:  [:index, :edit, :update, :destroy, :following, :followers]
-  before_action :correct_user, only:    [:edit, :update]
-  before_action :admin_user, only:      :destroy
+  before_action :signed_in_user,  only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_action :correct_user,    only: [:edit, :update]
+  before_action :admin_user,      only: :destroy
   before_action :registered_user, only: [:new, :create]
 
   def new
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # Relationships
+  # Relationships helpers.
 
   def following
     @title = "Following"
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
   end
 
   private
-#######################################################################################################################
+#####################################################################################################################
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

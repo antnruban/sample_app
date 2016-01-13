@@ -17,7 +17,7 @@ describe "Micropost Pages" do
       end
 
       describe "error message" do
-        before { click_button 'Post'}
+        before { click_button 'Post' }
         it { should have_content 'error' }
       end
     end

@@ -5,14 +5,14 @@ class User < ActiveRecord::Base
   has_secure_password
   before_save { email.downcase! }
   before_create :create_remember_token
+  after_create  :send_welcome_mail
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: true }
   validates :password, length: { minimum: 6 }
-  has_many  :microposts, dependent: :destroy
 
+  has_many  :microposts, dependent: :destroy
   has_many  :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many  :followed_users, through: :relationships, source: :followed
-
   has_many  :reverse_relationships, foreign_key: "followed_id",  class_name: "Relationship", dependent: :destroy
   has_many  :followers, through: :reverse_relationships, source: :follower
 
@@ -45,5 +45,9 @@ class User < ActiveRecord::Base
 
   def create_remember_token
     self.remember_token = User.encrypt(User.new_remember_token)
+  end
+
+  def send_welcome_mail
+    UserMailer.welcome_mail(self).deliver
   end
 end

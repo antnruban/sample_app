@@ -23,6 +23,8 @@ describe User do
   it { should respond_to(:following?) }
   it { should respond_to(:reverse_relationships) }
   it { should respond_to(:followers) }
+  it { should respond_to(:email_confirmed) }
+  it { should respond_to(:confirm_token) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -35,6 +37,24 @@ describe User do
 
     it { should be_admin }
   end
+
+  describe "email not activated yet" do
+    before { @user.save }
+
+    it { expect(@user.confirm_token).not_to be_nil }
+    it { expect(@user.email_confirmed).to be_false }
+  end
+
+  describe "email activated successfully" do
+    before do
+      @user.save
+      @user.email_activate
+    end
+
+    it { expect(@user.confirm_token).to be_nil }
+    it { expect(@user.email_confirmed).to be_true }
+  end
+
 
   describe "when name is not present" do
     before { @user.name = " " }
@@ -117,11 +137,6 @@ describe User do
 
       it { should be_invalid }
     end
-  end
-
-  describe "remember token can't be blank" do
-    before { @user.save }
-    its (:remember_token) { should_not be_blank }
   end
 
   describe "micropost associations" do

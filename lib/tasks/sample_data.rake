@@ -10,12 +10,12 @@ end
 
 def create_users
   User.create!(name: "Admin User", email: "firstadmin@post.dom", password: "password", password_confirmation: "password",
-               admin: true)
+               admin: true).email_activate
   99.times do |n|
     name  = Faker::Name.name
     email = "name-#{n+1}@post.dom"
     password  = "password"
-    user = User.create!(name: name, email: email, password: password, password_confirmation: password)
+    user = User.create!(name: name, email: email, password: password, password_confirmation: password).email_activate
   end
 
   # prompt to shell

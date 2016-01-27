@@ -4,8 +4,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
   before_save { email.downcase! }
-  before_create :create_remember_token
-  after_create  :send_welcome_mail
+  before_create :confirmation_token
   validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: true }
   validates :password, length: { minimum: 6 }
@@ -32,7 +31,7 @@ class User < ActiveRecord::Base
     relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  def User.new_remember_token
+  def User.new_token
     SecureRandom.urlsafe_base64
   end
 
@@ -40,14 +39,16 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def email_activate
+    self.email_confirmed = true
+    self.confirm_token = nil
+    save!(:validate => false)
+  end
+
   private
 #######################################################################################################################
 
-  def create_remember_token
-    self.remember_token = User.encrypt(User.new_remember_token)
-  end
-
-  def send_welcome_mail
-    UserMailer.welcome_mail(self).deliver
+  def confirmation_token
+    self.confirm_token = User.new_token.to_s if self.confirm_token.blank?
   end
 end

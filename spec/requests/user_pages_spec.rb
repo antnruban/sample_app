@@ -119,9 +119,10 @@ describe "User Pages" do
       describe "after saving the user" do
         before { click_button submit }
         let(:user) { User.find_by(email: 'user@example.com') }
+        let(:flash_message) { "Email was send to #{user.email}, you need to confirm your account."}
 
-        it { should have_title(user.name) }
-        it { should have_selector( 'div.alert.alert-success', text: "Welcome") }
+        it { should have_title(full_title("")) }
+        it { should have_selector( 'div.alert.alert-success', text: flash_message) }
       end
     end
   end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users do
     member do
+      get :confirm_email
       get :following, :followers
     end
   end

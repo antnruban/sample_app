@@ -16,9 +16,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      UserMailer.confirm_mail(@user).deliver
+      flash[:success] = "Email was send to #{@user.email}, you need to confirm your account."
+      redirect_to root_path
     else
       render 'new'
     end
@@ -48,6 +48,18 @@ class UsersController < ApplicationController
       user.destroy
       flash[:success] = "User profile deleted"
       redirect_to users_path
+    end
+  end
+
+  def confirm_email
+    user = User.find_by_confirm_token(params[:id])
+    if user
+      user.email_activate
+      flash[:success] = "Welcome to the Sample App! Your email has been confirmed. Please sign in to continue."
+      redirect_to signin_path
+    else
+      flash[:error] = "Sorry. User does not exist"
+      redirect_to root_path
     end
   end
 

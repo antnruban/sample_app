@@ -6,6 +6,7 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
+    UserMailer.new_follower_mail(current_user, @user).deliver
     respond_with @user
   end
 

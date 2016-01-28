@@ -1,0 +1,7 @@
+Hi, <%= @followed.name %>!
+===============================================
+We are pleased to inform, <%= @follower.name %> is your new follower. Link to his profile below.
+<%= user_url(@follower, :host => ActionMailer::Base.default_url_options[:host]) %>
+Our team are greeting You.
+
+Have a great day!

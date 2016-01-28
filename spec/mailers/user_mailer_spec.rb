@@ -39,4 +39,24 @@ describe UserMailer do
       it { @email.subject.should == "Wellcome to Sample Application!!" }
     end
   end
+
+  describe "should send an email about new following" do
+    let(:follower) { FactoryGirl.create(:user) }
+    let(:followed) { FactoryGirl.create(:user) }
+    before do
+      sign_in follower
+      visit user_path(followed)
+      click_button "Follow"
+    end
+
+    it { ActionMailer::Base.deliveries.count.should == 1 }
+
+    describe "with right titles" do
+      before { @email = ActionMailer::Base.deliveries.first }
+
+      it { @email.to.should == [followed.email] }
+      it { @email.from.should == ["sampleapp@post.dom"] }
+      it { @email.subject.should == "#{follower.name} is following you now." }
+    end
+  end
 end

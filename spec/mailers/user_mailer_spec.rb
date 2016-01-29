@@ -1,15 +1,7 @@
 require "spec_helper"
 
 describe UserMailer do
-  before(:each) do
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
-  end
-
-  after(:each) do
-    ActionMailer::Base.deliveries.clear
-  end
+  before(:each) { ActionMailer::Base.delivery_method = :test }
 
   describe "should send an email after creating user profile" do
     let(:user_email) { "user@example.com" }
@@ -40,23 +32,36 @@ describe UserMailer do
     end
   end
 
-  describe "should send an email about new following" do
+  describe "email about new follower" do
     let(:follower) { FactoryGirl.create(:user) }
     let(:followed) { FactoryGirl.create(:user) }
-    before do
-      sign_in follower
-      visit user_path(followed)
-      click_button "Follow"
+
+    describe "if followed is subscribed" do
+      before do
+        sign_in follower
+        visit user_path(followed)
+        click_button "Follow"
+      end
+
+      it { ActionMailer::Base.deliveries.count.should == 1 }
+
+      describe "with right titles" do
+        before { @email = ActionMailer::Base.deliveries.first }
+
+        it { @email.to.should == [followed.email] }
+        it { @email.from.should == ["sampleapp@post.dom"] }
+        it { @email.subject.should == "#{follower.name} is following you now in Sample Application." }
+      end
     end
 
-    it { ActionMailer::Base.deliveries.count.should == 1 }
+    describe "if followed is not subscribed" do
+      before do
+        # followed.unsubscribe
+        followed.email_subscribed = false # not finish implementation.
+        UserMailer.new_follower_mail(follower, followed).deliver
+      end
 
-    describe "with right titles" do
-      before { @email = ActionMailer::Base.deliveries.first }
-
-      it { @email.to.should == [followed.email] }
-      it { @email.from.should == ["sampleapp@post.dom"] }
-      it { @email.subject.should == "#{follower.name} is following you now." }
+      it { ActionMailer::Base.deliveries.count.should == 0 }
     end
   end
 end

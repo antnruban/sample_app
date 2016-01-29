@@ -25,6 +25,7 @@ describe User do
   it { should respond_to(:followers) }
   it { should respond_to(:email_confirmed) }
   it { should respond_to(:confirm_token) }
+  it { should respond_to(:email_subscribed) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -53,6 +54,12 @@ describe User do
 
     it { expect(@user.confirm_token).to be_nil }
     it { expect(@user.email_confirmed).to be_true }
+  end
+
+  describe "subscribed to emails by default" do
+    before { @user.save }
+
+    it { expect(@user.email_subscribed).to be_true }
   end
 
 

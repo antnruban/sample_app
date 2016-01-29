@@ -63,6 +63,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def unsubscribe
+    if user = User.read_access_token(params[:signature])
+      user.unsubscribe_user
+      render text: "You have been unsubscribed successfully!"
+    else
+      render text: "Invalid Link"
+    end
+  end
+
   # Relationships helpers.
 
   def following

@@ -45,10 +45,33 @@ class User < ActiveRecord::Base
     save!(:validate => false)
   end
 
+  def access_token
+    User.create_access_token(self)
+  end
+
+  def self.read_access_token(signature)
+    id = verifier.verify(signature)
+    User.find(id)
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+    nil
+  end
+
+  def unsubscribe_user
+    self.update_attribute :email_subscribed, false
+  end
+
   private
 #######################################################################################################################
 
   def confirmation_token
     self.confirm_token = User.new_token.to_s if self.confirm_token.blank?
+  end
+
+  def self.verifier
+    ActiveSupport::MessageVerifier.new(SampleApp::Application.config.secret_key_base)
+  end
+
+  def self.create_access_token(user)
+    verifier.generate(user.id)
   end
 end

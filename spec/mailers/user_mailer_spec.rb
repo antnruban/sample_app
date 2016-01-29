@@ -52,12 +52,17 @@ describe UserMailer do
         it { @email.from.should == ["sampleapp@post.dom"] }
         it { @email.subject.should == "#{follower.name} is following you now in Sample Application." }
       end
+
+      describe "with unsubscribe link" do
+        let(:email_string) { ActionMailer::Base.deliveries.first.to_s }
+
+        it { email_string.should have_link 'Unsubscribe' }
+      end
     end
 
     describe "if followed is not subscribed" do
       before do
-        # followed.unsubscribe
-        followed.email_subscribed = false # not finish implementation.
+        followed.unsubscribe_user
         UserMailer.new_follower_mail(follower, followed).deliver
       end
 

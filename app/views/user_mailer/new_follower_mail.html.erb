@@ -10,5 +10,11 @@
     </p>
     <a href="<%= user_url(@follower) %>"><%= @follower.name %> profile.</a>
     <p>Have a great day!</p>
+    <hr>
+    <p>
+      Click to
+      <%= link_to "Unsubscribe", unsubscribe_url(@followed.access_token) %>
+      if you don't want to receive similar emails.
+    </p>
   </body>
 </html>

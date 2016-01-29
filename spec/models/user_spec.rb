@@ -62,6 +62,14 @@ describe User do
     it { expect(@user.email_subscribed).to be_true }
   end
 
+  describe "can unsubscribe from emails" do
+    before do
+      @user.save
+      @user.unsubscribe_user
+    end
+
+    it { expect(@user.email_subscribed).not_to be_true }
+  end
 
   describe "when name is not present" do
     before { @user.name = " " }

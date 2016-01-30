@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
+  <%= render 'mail_head' %>
   <body>
-    <h1>Welcome to Sample Application, <%= @user.name %>!</h1>
-    <p>
-      Thanks for registering! To confirm your registration click the URL below.
-    </p>
-    <a href="<%= confirm_email_user_url(@user.confirm_token) %>">Confirmation link.</a>
-    <p>Our team are greeting You.</p>
-    <p>Thanks for joining and have a great day!</p>
+    <div class="content">
+      <%= render 'logo', header_content: "Welcome to Sample Application!" %>
+      <h3>Hi, <%= @user.name %>.</h3>
+      <p>Thanks for registering! To confirm your registration click the URL below.</p>
+      <a href="<%= confirm_email_user_url(@user.confirm_token) %>">Confirmation link.</a>
+      <p>Our team are greeting You.</p>
+      <p>Thanks for joining and have a great day!</p>
+    </div>
   </body>
 </html>

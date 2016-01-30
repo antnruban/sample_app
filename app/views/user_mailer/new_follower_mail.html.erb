@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
+  <%= render 'mail_head' %>
   <body>
-    <h1>Hi, <%= @followed.name %>!</h1>
-    <p>
-      We are pleased to inform, <b><%= @follower.name %></b> is your new follower. Link to his profile below.
-    </p>
-    <a href="<%= user_url(@follower) %>"><%= @follower.name %> profile.</a>
-    <p>Have a great day!</p>
-    <hr>
-    <p>
-      Click to
-      <%= link_to "Unsubscribe", unsubscribe_url(@followed.access_token) %>
-      if you don't want to receive similar emails.
-    </p>
+    <div class="content">
+      <%= render 'logo', header_content: "Sample Application" %>
+      <h3>Hi, <%= @followed.name %>!</h3>
+      <p>
+        We are pleased to inform,
+          <b><%= @follower.name %></b>
+        is your new follower. Link to his profile below.
+      </p>
+      <a href="<%= user_url(@follower) %>"><%= @follower.name %> profile.</a>
+      <p>Have a great day!</p>
+      <%= render 'unsubscribe' %>
+    </div>
   </body>
 </html>

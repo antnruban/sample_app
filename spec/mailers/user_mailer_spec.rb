@@ -16,11 +16,11 @@ describe UserMailer do
 
     it { ActionMailer::Base.deliveries.count.should == 1 }
 
-    it "with two valid confirmation links at multipart" do
+    it "with valid confirmation link" do
       email_string = ActionMailer::Base.deliveries.first.to_s
       confirm_token = User.find_by_email(user_email).confirm_token
-      link_regex = /http\:\/\/localhost\:3000\/users\/#{confirm_token}\/confirm_email/
-      expect(email_string.scan(link_regex).length).to eq(2)
+      href = "http://localhost:3000/users/#{confirm_token}/confirm_email"
+      expect(email_string.should have_link('Confirmation link.', href: href))
     end
 
     describe "with right titles" do
@@ -56,7 +56,7 @@ describe UserMailer do
       describe "with unsubscribe link" do
         let(:email_string) { ActionMailer::Base.deliveries.first.to_s }
 
-        it { email_string.should have_link 'Unsubscribe' }
+        it { email_string.should have_link 'unsubscribe' }
       end
     end
 

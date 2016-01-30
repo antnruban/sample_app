@@ -17,6 +17,6 @@ class UserMailer < ActionMailer::Base
 #######################################################################################################################
 
   def prevent_delivery_to_followed
-    message.perform_deliveries = false if !(@followed.email_subscribed)
+    message.perform_deliveries = false if @followed.email_subscribed == false
   end
 end

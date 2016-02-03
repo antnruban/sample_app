@@ -83,6 +83,7 @@ describe "Authentication" do
       it { should_not have_link(full_title("Users")) }
       it { should_not have_link(full_title("Sign Out")) }
 
+
       describe "in the Users controller" do
 
         describe "visiting the edit page" do
@@ -204,6 +205,93 @@ describe "Authentication" do
       end
 
       it { should have_selector('div.alert.alert-notice') }
+    end
+
+    describe "in PasswordReset controller" do
+
+      describe 'sign in page have reset link' do
+        before { visit signin_path }
+
+        it { should have_link 'forgotten password?' }
+      end
+
+      describe "password reset page" do
+        before { visit new_password_reset_path }
+
+        it { should have_title(full_title('Reset Password')) }
+
+        describe "with invalid email" do
+          let(:wrong_email) { "not.existed.email@post.dom" }
+          before do
+            fill_in 'email', with: wrong_email
+            click_button 'Reset Password'
+          end
+
+          it { should have_selector('div.alert.alert-error') }
+        end
+
+        describe "with valid email" do
+          let(:user) { FactoryGirl.create(:user) }
+          before do
+            fill_in 'email', with: user.email
+            click_button 'Reset Password'
+          end
+
+          it { should have_title(full_title('')) }
+          it { should have_selector('div.alert.alert-notice') }
+          it { should have_content "Email sent with password reset instructions." }
+
+          describe "link redirects to recovery password form" do
+            before do
+              user.send_password_reset
+              @edit_pass_form_path = "http://www.example.com/password_resets/#{user.password_reset_token}/edit"
+              visit @edit_pass_form_path
+            end
+
+            it { should have_title(full_title('Recovery Password')) }
+
+            describe "with invalid password" do
+              let(:wrong_pass) { "pas" }
+              before do
+                fill_in 'user_password', with: wrong_pass
+                click_button 'Update Password'
+              end
+
+              it { should have_selector('div.alert.alert-error')}
+            end
+
+            describe "with valid password" do
+              let(:valid_password) { "password" }
+              before do
+                fill_in 'user_password', with: valid_password
+                fill_in 'user_password_confirmation', with: valid_password
+                click_button 'Update Password'
+              end
+
+              it { should have_content "Password has been update!" }
+              it { should have_title(full_title('')) }
+
+              describe "when user signed in" do
+                before do
+                  sign_in user
+                  visit @edit_pass_form_path
+                end
+
+                it { should have_title(full_title('Edit User')) }
+              end
+            end
+
+            describe "with expired token" do
+              before do
+                user.update_attribute(:password_reset_sent_at, 31.minutes.ago)
+                get @edit_pass_form_path
+              end
+
+              specify { expect(response).to redirect_to new_password_reset_path }
+            end
+          end
+        end
+      end
     end
   end
 end

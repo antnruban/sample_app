@@ -26,6 +26,8 @@ describe User do
   it { should respond_to(:email_confirmed) }
   it { should respond_to(:confirm_token) }
   it { should respond_to(:email_subscribed) }
+  it { should respond_to(:password_reset_token) }
+  it { should respond_to(:password_reset_sent_at) }
 
   it { should be_valid }
   it { should_not be_admin }

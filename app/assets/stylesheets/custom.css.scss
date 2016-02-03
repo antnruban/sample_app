@@ -148,6 +148,11 @@ aside {
 .gravatar {
   float: left;
   margin-right: 10px;
+  &.edit {
+    margin-top: 10px;
+    margin-left: 90px;
+    margin-right: -50px;
+  }
 }
 
 .stats {
@@ -189,10 +194,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-input {
-  height: auto !important;
-}
-
 #error_explanation {
   color: #f00;
   ul {
@@ -201,24 +202,42 @@ input {
   }
 }
 
+.offset3 {
+  margin-left: 315px;
+}
+
+.span6 {
+  width: 350px;
+}
+
+.form-body {
+  border: 1px solid $grayLighter;
+  padding: 25px;
+  border-radius: 6px;
+  background-color: $grayLighter;
+  p {
+    text-align: center;
+  }
+  input {
+    height: 33px;
+  }
+}
+
 .field_with_errors {
   @extend .control-group;
   @extend .error;
+}
+
+.label-link {
+  float: right;
+  margin-bottom: 5px;
+  margin-top: -25px;
 }
 
 /* Flash messages */
 
 .alert {
   text-align: center;
-}
-
-/* Hell page */
-
-.hell {
-  color: #A80000;
-  &:hover {
-    color: #680000;
-  }
 }
 
 /* Users index */

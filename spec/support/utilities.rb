@@ -31,7 +31,3 @@ def sign_in(user, options={})
     click_button "Sign In"
   end
 end
-
-def signup_user
-
-end

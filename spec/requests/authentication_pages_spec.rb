@@ -75,6 +75,56 @@ describe "Authentication" do
     end
   end
 
+  describe "search" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    describe "not logged in" do
+      before { get search_path }
+      specify { expect(response).to redirect_to(signin_path) }
+    end
+
+    describe "logged in" do
+    before do
+      sign_in user
+      visit search_path
+    end
+
+      describe "page" do
+        it { should have_selector('h1', text: "Find your friends") }
+        it { should have_selector('h1', text: "Search") }
+        it { should have_title   "Search" }
+        it { should have_button  "Search" }
+
+        describe "with valid information" do
+          before do
+            sign_in user
+            visit search_path
+            fill_in "search_query", with: user.name
+            click_button "Search"
+          end
+
+          it { should have_content("Found 1 user") }
+          it { should have_content(user.name) }
+        end
+
+        describe "with empty query" do
+          before { click_button "Search" }
+
+          it { should have_content "Found #{User.count} user" }
+        end
+
+        describe "with not existed informations" do
+          before do
+            fill_in "search_query", with: "not_existed"
+            click_button "Search"
+          end
+
+          it { should have_content "No matches found"}
+        end
+      end
+    end
+  end
+
   describe "authorization" do
 
     describe "for non-signed-in users" do

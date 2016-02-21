@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user,  only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_action :signed_in_user,  only: [:index, :edit, :update, :destroy, :following, :followers, :search]
   before_action :correct_user,    only: [:edit, :update]
   before_action :admin_user,      only: :destroy
   before_action :registered_user, only: [:new, :create]
@@ -69,6 +69,14 @@ class UsersController < ApplicationController
       render text: "You have been unsubscribed successfully!"
     else
       render text: "Invalid Link"
+    end
+  end
+
+  def search
+    if params[:search_query].present?
+      @users = User.search_user(params[:search_query]).paginate(:page => params[:page])
+    else
+      @users = User.paginate(:page => params[:page])
     end
   end
 

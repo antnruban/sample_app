@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
-  match '/hell',    to: 'static_pages#hell',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
 
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   match 'users/unsubscribe/:signature', to: 'users#unsubscribe', as: 'unsubscribe', via: 'get'
+  match 'search', to: 'users#search', via: 'get'
 
   resources :users do
     member do

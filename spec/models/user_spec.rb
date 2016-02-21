@@ -73,6 +73,20 @@ describe User do
     it { expect(@user.email_subscribed).not_to be_true }
   end
 
+  describe "search" do
+    before { @user.save }
+
+    it "by name" do
+      found_user = User.search_user(@user.name)
+      expect(found_user).should_not be_empty
+    end
+
+    it "by email" do
+      found_user = User.search_user(@user.email)
+      expect(found_user).should_not be_empty
+    end
+  end
+
   describe "when name is not present" do
     before { @user.name = " " }
     it { should_not be_valid }

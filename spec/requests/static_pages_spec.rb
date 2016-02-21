@@ -17,7 +17,7 @@ describe "Static pages" do
   describe "Home page" do
     before { visit root_path }
 
-    have_heading_title('Sample App', title: '')
+    have_heading_and_title('Sample App', title: '')
 
     describe "for signed in users" do
       let(:user) { FactoryGirl.create(:user) }
@@ -75,24 +75,18 @@ describe "Static pages" do
   describe "Help page" do
     before { visit help_path }
 
-    have_heading_title('Help')
-  end
-
-  describe "Hell page" do
-    before { visit hell_path }
-
-    have_heading_title('Hell')
+    have_heading_and_title('Help')
   end
 
   describe "About page" do
     before { visit about_path }
 
-    have_heading_title('About', title: 'About Us')
+    have_heading_and_title('About', title: 'About Us')
   end
 
   describe "Contact page" do
     before { visit contact_path }
 
-    have_heading_title('Contact', title: 'Contacts')
+    have_heading_and_title('Contact', title: 'Contacts')
   end
 end

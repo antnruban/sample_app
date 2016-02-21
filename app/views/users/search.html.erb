@@ -1,0 +1,31 @@
+<%= provide(:title, 'Search') %>
+
+<div class="row">
+  <aside class="span4">
+    <div class="search">
+      <h1>Search</h1>
+
+      <%= form_tag(search_path, method: "get") do %>
+        <%= text_field_tag(:search_query, nil,class: "search_input",
+                            placeholder: "Start typing user's name or email here...") %>
+        <%= submit_tag("Search", class: "btn btn-block") %>
+      <% end %>
+
+    </div>
+  </aside>
+
+  <div class="span7">
+    <h1>Find your friends</h1>
+
+    <% if @users.any? %>
+      <h2>Found <%= pluralize(@users.count, 'user') %></h2>
+      <ul class="users">
+        <%= render @users %>
+      </ul>
+      <%= will_paginate %>
+    <% else %>
+      <h2>No matches found</h2>
+    <% end %>
+  </div>
+
+</div>

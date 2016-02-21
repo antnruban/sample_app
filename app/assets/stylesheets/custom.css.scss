@@ -3,6 +3,7 @@
 /* universal */
 
 $grayLighter: #eaeaea;
+$inputHieght: 33px;
 
 html {
   overflow-y: scroll;
@@ -169,7 +170,7 @@ aside {
     }
     &:hover {
       text-decoration: none;
-      color: $blue;
+      color: #005580;
     }
   }
   strong {
@@ -219,7 +220,14 @@ input, textarea, select, .uneditable-input {
     text-align: center;
   }
   input {
-    height: 33px;
+    height: $inputHieght;
+  }
+}
+
+.search {
+  margin-right: 10px;
+  input {
+    height: $inputHieght;
   }
 }
 

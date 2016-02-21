@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     UserMailer.password_reset(self).deliver
   end
 
+  def self.search_user(query)
+    User.where('name or email like ?', "%#{query}%")
+  end
+
   private
 #######################################################################################################################
 

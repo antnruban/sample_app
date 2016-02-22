@@ -95,7 +95,7 @@ describe "Authentication" do
         it { should have_title   "Search" }
         it { should have_button  "Search" }
 
-        describe "with valid information" do
+        describe "with existed query" do
           before do
             sign_in user
             visit search_path
@@ -103,7 +103,6 @@ describe "Authentication" do
             click_button "Search"
           end
 
-          it { should have_content("Found 1 user") }
           it { should have_content(user.name) }
         end
 

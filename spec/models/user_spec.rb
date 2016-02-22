@@ -78,12 +78,12 @@ describe User do
 
     it "by name" do
       found_user = User.search_user(@user.name)
-      expect(found_user).should_not be_empty
+      expect(found_user).to_not be_empty
     end
 
     it "by email" do
       found_user = User.search_user(@user.email)
-      expect(found_user).should_not be_empty
+      expect(found_user).to_not be_empty
     end
   end
 

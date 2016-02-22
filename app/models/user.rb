@@ -66,7 +66,11 @@ class User < ActiveRecord::Base
   end
 
   def self.search_user(query)
-    User.where('name or email like ?', "%#{query}%")
+    queries = query.split
+    users = queries.map { |query| User.where('name LIKE ? OR email LIKE ?', "%#{query}%", "%#{query}%") }
+    users.flatten!
+    ids = users.map(&:id)
+    User.where(id: ids).uniq
   end
 
   private
